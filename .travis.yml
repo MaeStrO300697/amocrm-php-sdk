@@ -4,9 +4,8 @@ php:
   - "7.2"
   - "7.3"
   - "7.4"
-  - nightly
 install:
-  -php composer.phar install
+  -composer install
 
 script:
   - ./vendor/bin/phpcs
