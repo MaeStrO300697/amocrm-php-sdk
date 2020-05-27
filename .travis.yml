@@ -8,4 +8,4 @@ install:
   -composer install
 
 script:
-  - ./vendor/bin/phpcs.bat
+  - ./vendor/bin/phpcs
