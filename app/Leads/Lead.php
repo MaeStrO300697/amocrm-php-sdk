@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: User
+ * User: maestro300697
  * Date: 26.05.2020
  * Time: 12:07
  */
@@ -9,43 +9,45 @@
 namespace maestro300697\amocrmSdk\Leads;
 
 
-class Lead
-{
-    /**
-     * Название сделки
-     *
-     * @var string
-     */
-    public $name;
-    /**
-     * Дата создания текущей сделки
-     *
-     * @var
-     */
-    public $created_at;
-    /**
-     * @var
-     */
-    public $status_id; // Дата изменения текущей сделки
-    /**
-     * @var
-     */
-    public $sale; // Бюджет сделки
-    /**
-     * @var
-     */
-    public $responsible_user_id; //ID ответственного пользователя
-    /**
-     * @var
-     */
-    public $tags;
-    /**
-     * @var
-     */
-    public $contacts_id; //Уникальный идентификатор контакта, для связи с сделкой.
-    /**
-     * @var
-     */
-    public $custom_fields; // Внутри данного массива находится содержимое каждого заполненного дополнительного поля
+use maestro300697\amocrmSdk\IEntityAmoCrm;
 
+class Lead implements IEntityAmoCrm
+{
+    public $type;
+
+    protected $lead;
+
+    protected $link = '/api/v4/leads';
+
+    public function create(array $lead)
+    {
+        $this->lead = $lead;
+        $this->type = 'add';
+    }
+
+    public function update(array $lead)
+    {
+        // TODO: Implement update() method.
+    }
+
+    public function list()
+    {
+        // TODO: Implement list() method.
+    }
+
+
+    public function getLead()
+    {
+        return $this->lead;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function getLink()
+    {
+        return $this->link;
+    }
 }
