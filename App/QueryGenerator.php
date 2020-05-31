@@ -10,36 +10,36 @@ namespace maestro300697\amocrmSdk;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
-use maestro300697\amocrmSdk\EntitiesService\IEntityService;
+use maestro300697\amocrmSdk\EntitiesService\BaseEntityService;
 
 class QueryGenerator
 {
 
     protected $format = 'array';
 
+
     /**
-     * Make request to Amocrm API.
-     *
-     * @param \maestro300697\amocrmSdk\EntitiesService\IEntityService $essence
-     * @param Client $client
+     * @param BaseEntityService $service
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function request(IEntityService $essence, Client $client)
+    public function request($typeRequest,BaseEntityService $service)
     {
         try {
-            if($essence->getEntity()) {
-                $response = $client->getClient()->request(
-                    'Post', $essence->getLink(), [
+            if($service->getEntity()->getList()) {
+                $response = $service->getClient()->client->request(
+                    'Post', $service->getLink(), [
                         'headers' => [
                             'User-Agent' => 'amoCRM-API-client/1.0',
                             'Content-Type' => 'application/json'
                         ],
-                        RequestOptions::JSON => $essence->getEntity()
+                        RequestOptions::JSON => [
+                            $typeRequest => $service->getEntity()->getList()
+                        ]
                     ]
                 );
             }else{
-                $response = $client->getClient()->request(
-                    'Get', $essence->getLink(), [
+                $response = $service->getClient()->client->request(
+                    'Get', $service->getLink(), [
                         'headers' => [
                             'User-Agent' => 'amoCRM-API-client/1.0',
                         ]

@@ -18,12 +18,8 @@ class LeadService extends BaseEntityService
 
     protected static $entity = 'leads';
 
-    public function create(IEntity $lead)
-    {
-        $this->lead['add'] = $lead;
-    }
 
-    public function update(IEntity $lead)
+    public function update()
     {
         // TODO: Implement update() method.
     }
@@ -34,11 +30,6 @@ class LeadService extends BaseEntityService
         // TODO: Implement list() method.
     }
 
-
-    public function getEntity()
-    {
-        return $this->lead;
-    }
 
     public function getLink()
     {

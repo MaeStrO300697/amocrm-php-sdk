@@ -12,6 +12,7 @@ namespace maestro300697\amocrmSdk\EntitiesService;
 
 use maestro300697\amocrmSdk\Client;
 use maestro300697\amocrmSdk\Entity\IEntity;
+use maestro300697\amocrmSdk\Entity\ListEntity;
 use maestro300697\amocrmSdk\QueryGenerator;
 
 /**
@@ -26,6 +27,7 @@ abstract class BaseEntityService implements IEntityService
      * @var $client Client
      */
     protected $client;
+
     /**
      * Класс выполняющий запросы к AmoCRM
      *
@@ -35,19 +37,35 @@ abstract class BaseEntityService implements IEntityService
 
     protected $apiLink = '/api/v4/';
 
-    public function __construct(Client $client,QueryGenerator $queryGenerator){
+    protected $listEntity;
+
+    public function __construct(ListEntity $listEntity,Client $client,QueryGenerator $queryGenerator){
+        $this->listEntity = $listEntity;
         $this->client = $client;
         $this->queryGenerator = $queryGenerator;
     }
 
     public abstract function getById(int $id);
-    public function add(IEntity $entity){
-        //$this->queryGenerator->request();
+    public function create(){
+        return $this->queryGenerator->request('add',$this);
     }
-    public abstract function update(IEntity $entity);
+    public abstract function update();
     public abstract function list($query,$limit);
-    public abstract function getEntity();
+
+    public function getEntity(){
+        return $this->listEntity;
+    }
     public function getLink(){
         return $this->apiLink;
     }
+
+    /**
+     * @return Client
+     */
+    public function getClient(): Client
+    {
+        return $this->client;
+    }
+
+
 }

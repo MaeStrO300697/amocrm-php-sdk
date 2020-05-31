@@ -169,11 +169,8 @@ class Lead implements IEntity
      */
     public function __construct($name, $price, $custom_fields_values = null)
     {
-        if(isset($name) && isset($price)){
-            throw new \InvalidArgumentException('Variables cannot be empty');
-        }
-        $this->name = $name;
-        $this->price = $price;
+        $this->setName($name);
+        $this->setPrice($price);
         $this->custom_fields_values = $custom_fields_values;
 
         return $this;
@@ -208,6 +205,9 @@ class Lead implements IEntity
      */
     public function setName(string $name)
     {
+        if(empty($name)){
+            throw new \InvalidArgumentException('Variable cannot be empty');
+        }
         $this->name = $name;
     }
 
@@ -224,6 +224,9 @@ class Lead implements IEntity
      */
     public function setPrice(int $price)
     {
+        if($price <= 0 && empty($price)){
+            throw new \InvalidArgumentException('Variable cannot be empty');
+        }
         $this->price = $price;
     }
 

@@ -45,7 +45,7 @@ class Client
      */
     protected $login;
 
-    protected $client;
+    public $client;
 
 
     public function __construct($login, $subdomain, $hash)
