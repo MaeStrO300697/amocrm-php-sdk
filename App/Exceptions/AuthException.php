@@ -11,12 +11,14 @@ namespace maestro300697\amocrmSdk\Exceptions;
 /**
  * Class AuthException
  * Ошибка авторизации AmoCRM
+ *
  * @package maestro300697\amocrmSdk\Exceptions
  */
 class AuthException extends \Exception
 {
     /**
      * Код ошибки
+     *
      * @var $error_code integer
      */
     private $error_code;
@@ -30,6 +32,7 @@ class AuthException extends \Exception
 
     /**
      * AuthException constructor.
+     *
      * @param array $response
      */
     public function __construct(array $response)
@@ -43,7 +46,8 @@ class AuthException extends \Exception
     /**
      * Возвращает код ошибки при авторизации
      * Справочник ошибок доступен по адресу
-     * @see https://www.amocrm.ru/developers/content/api/errors
+     *
+     * @see    https://www.amocrm.ru/developers/content/api/errors
      * @return int $error_code
      */
     public function getErrorCode()
@@ -53,7 +57,8 @@ class AuthException extends \Exception
     /**
      * Возвращает название ошибки при авторизации
      * Справочник ошибок доступен по адресу
-     * @see https://www.amocrm.ru/developers/content/api/errors
+     *
+     * @see    https://www.amocrm.ru/developers/content/api/errors
      * @return int $error_code
      */
 

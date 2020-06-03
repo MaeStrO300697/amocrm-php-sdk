@@ -9,16 +9,45 @@
 namespace maestro300697\amocrmSdk\Entity;
 
 
+/**
+ * Class ListEntity
+ *
+ * @package maestro300697\amocrmSdk\Entity
+ */
 class ListEntity
 {
-    protected $entities;
+    /**
+     * @var
+     */
+    protected $entities = [];
 
-    public function add(IEntity $entity){
+    /**
+     * @param IEntity $entity
+     */
+    public function add(IEntity $entity)
+    {
         $this->entities[] = $entity;
     }
 
-    public function getList(){
+    /**
+     * @return mixed
+     */
+    public function getList()
+    {
         return $this->entities;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getListHowArray()
+    {
+        $array = [];
+        foreach ($this->entities as $key => $entity){
+            $array = $entity->toArray();
+        }
+        return $array;
+    }
+
 
 }

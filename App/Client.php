@@ -50,7 +50,7 @@ class Client
 
     public function __construct($login, $subdomain, $hash)
     {
-        if (empty($login) || empty($subdomain) || empty($hash)){
+        if (empty($login) || empty($subdomain) || empty($hash)) {
             throw new InvalidArgumentException('Login, subdomains, hash cannot be empty');
         }
         $this->setLogin($login)
@@ -161,7 +161,7 @@ class Client
     {
         try {
             $response = $this->getClient()->request(
-                'Post', "/private/api/auth.php?type=json",[
+                'Post', "/private/api/auth.php?type=json", [
                     'headers' => [
                         'User-Agent' => 'amoCRM-API-client/1.0',
                     ],
@@ -173,7 +173,7 @@ class Client
             );
             $responseBody = json_decode($response->getBody()->getContents(), true);
 
-            if($responseBody['response']['auth'] === true){
+            if($responseBody['response']['auth'] === true) {
                 return $response;
             }else{
                 throw new AuthException($responseBody);

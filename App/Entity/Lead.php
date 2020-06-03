@@ -11,10 +11,7 @@ namespace maestro300697\amocrmSdk\Entity;
 
 /**
  * Class Lead
- * @package maestro300697\amocrmSdk\Entity
- */
-/**
- * Class Lead
+ *
  * @package maestro300697\amocrmSdk\Entity
  */
 class Lead implements IEntity
@@ -36,9 +33,9 @@ class Lead implements IEntity
     /**
      * Бюджет сделки
      *
-     * @var $price int
+     * @var $sale int
      */
-    private $price;
+    private $sale;
 
     /**
      * ID этапа цифровой воронки, на котором находится данная сделка
@@ -162,16 +159,17 @@ class Lead implements IEntity
 
     /**
      * Lead constructor.
+     *
      * @param $name
      * @param $price
      * @param null $custom_fields_values
      * return $this
      */
-    public function __construct($name, $price, $custom_fields_values = null)
+    public function __construct($name, $sale, $custom_fields_values = null)
     {
         $this->setName($name);
-        $this->setPrice($price);
-        $this->custom_fields_values = $custom_fields_values;
+        $this->setSale($sale);
+        $this->custom_fields_values = $this->setCustomFieldsValues($custom_fields_values);
 
         return $this;
     }
@@ -205,7 +203,7 @@ class Lead implements IEntity
      */
     public function setName(string $name)
     {
-        if(empty($name)){
+        if(empty($name)) {
             throw new \InvalidArgumentException('Variable cannot be empty');
         }
         $this->name = $name;
@@ -214,20 +212,20 @@ class Lead implements IEntity
     /**
      * @return int
      */
-    public function getPrice(): int
+    public function getSale(): int
     {
-        return $this->price;
+        return $this->sale;
     }
 
     /**
      * @param int $price
      */
-    public function setPrice(int $price)
+    public function setSale(int $sale)
     {
-        if($price <= 0 && empty($price)){
+        if($sale <= 0 && empty($price)) {
             throw new \InvalidArgumentException('Variable cannot be empty');
         }
-        $this->price = $price;
+        $this->sale = $sale;
     }
 
     /**
@@ -321,7 +319,7 @@ class Lead implements IEntity
     /**
      * @param int $loss_reason_id
      */
-    public function setLossReasonId(int $loss_reason_id)
+    public function setLossReasonId($loss_reason_id)
     {
         $this->loss_reason_id = $loss_reason_id;
     }
@@ -417,7 +415,7 @@ class Lead implements IEntity
     /**
      * @param int $closed_at
      */
-    public function setClosedAt(int $closed_at)
+    public function setClosedAt($closed_at)
     {
         $this->closed_at = $closed_at;
     }
@@ -433,7 +431,7 @@ class Lead implements IEntity
     /**
      * @param int $closest_task_at
      */
-    public function setClosestTaskAt(int $closest_task_at)
+    public function setClosestTaskAt($closest_task_at)
     {
         $this->closest_task_at = $closest_task_at;
     }
@@ -463,9 +461,9 @@ class Lead implements IEntity
     }
 
     /**
-     * @param array $custom_fields_values
+     * @param array|null $custom_fields_values
      */
-    public function setCustomFieldsValues(array $custom_fields_values)
+    public function setCustomFieldsValues($custom_fields_values)
     {
         $this->custom_fields_values = $custom_fields_values;
     }
@@ -500,6 +498,26 @@ class Lead implements IEntity
     public function setEmbedded(array $embedded)
     {
         $this->_embedded = $embedded;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray() : array
+    {
+        $array =  [
+            'name' => $this->getName(),
+            'sale' => $this->getSale()
+        ];
+        isset($this->status_id) ? $array['status_id'] = $this->getStatusId() : false;
+        isset($this->pipeline_id) ? $array['pipeline_id'] = $this->getPipelineId() : false;
+        isset($this->created_by) ? $array['created_by'] = $this->getCreatedBy() : false;
+        isset($this->updated_by) ? $array['updated_by'] = $this->getUpdatedBy() : false;
+        isset($this->responsible_user_id) ? $array['responsible_user_id'] = $this->getResponsibleUserId() : false;
+        isset($this->custom_fields_values) ? $array['custom_fields_values'] = $this->getCustomFieldsValues() : false;
+        isset($this->_embedded) ? $array['_embedded'] = $this->getEmbedded() : false;
+
+        return $array;
     }
 
 }
